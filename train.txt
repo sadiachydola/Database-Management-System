@@ -1,0 +1,59 @@
+CREATE TABLE admin(
+    admin_id varchar(40),
+    password varchar(40),
+    PRIMARY KEY(admin_id)
+);
+CREATE TABLE user(
+    user_id varchar(40),
+    name varchar(40),
+    gender varchar(20),
+    date_of_birth varchar(20),
+    mobile_no varchar(11),
+    email varchar(20),
+    city varchar(30),
+    pin_code varchar(20),
+    password varchar(20),
+    image varchar(40),
+    PRIMARY KEY(user_id)
+);
+
+CREATE TABLE Ticket( 
+    Ticket_id char(20),
+    User_id char(20),
+    Seat_no char(20),
+    Capsul char(20),
+    Train_id char(20),
+    No_of_passenger varchar(11),
+    Date varchar(20),
+    Time char(20),
+    PRIMARY KEY(Ticket_id,User_id,Train_id),
+    CONSTRAINT fk_us FOREIGN KEY(User_id) REFERENCES User(User_id) on update CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fk_tr FOREIGN KEY(Train_id) REFERENCES Train(Train_id) on update CASCADE ON DELETE RESTRICT
+    );
+CREATE TABLE train_details( 
+    train_id char(20),
+    train_name varchar(30),
+    total_seat char(20),
+    PRIMARY KEY(train_id));
+CREATE TABLE schedule(
+    train_id char(20),
+    arrival_time char(20),
+    departure_time char(20),
+    bogie_name char(20),
+    destination varchar(30),
+    day varchar(20),
+    PRIMARY KEY(train_id),
+    CONSTRAINT fk_t FOREIGN KEY(train_id)REFERENCES train_details(train_id) ON UPDATE CASCADE ON DELETE RESTRICT);
+CREATE TABLE booking(
+ticket_id varchar(500),
+user_id varchar(40),
+seat_type varchar(40),
+train_id varchar(40),
+no_of_passenger varchar(100),
+date varchar(20),
+time char(20),
+PRIMARY KEY(ticket_id,user_id,train_id),
+CONSTRAINT fk_us FOREIGN KEY(user_id) REFERENCES user(user_id) on update CASCADE ON DELETE RESTRICT,
+CONSTRAINT fk_tr FOREIGN KEY(train_id) REFERENCES train_details(train_id) on update CASCADE ON DELETE RESTRICT
+    );
+
